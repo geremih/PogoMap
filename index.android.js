@@ -60,10 +60,11 @@ export default class AppProvider extends Component {
   componentWillMount() {
     persistStore(store, {
       storage: AsyncStorage,
+      whitelist: ['user'],
       transforms: [immutableTransform({})],
     }, () => {
       this.setState({ rehydrated: true });
-    }).purgeAll();
+    }); //.purgeAll();
   }
 
   render() {

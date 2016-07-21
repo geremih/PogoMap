@@ -2,6 +2,7 @@
 ![Alt text](map.jpeg?raw=true "Screenshot")
 
 ### Installation
+Set up the working environment using [Getting Started](https://facebook.github.io/react-native/docs/getting-started.html)
 1. npm install -g react-native
 2. npm install
 3. react-native run-android
@@ -10,6 +11,8 @@
 ### Usage
 1. Put your PTC username password in reducers/user.js
 2. Supply your own Google Maps api key in AndroidManifest
+
+To delete the persisted data, uncomment purgeAll() in index.android.js
 
 ###Possible contributions:
 1. Support for iOS
