@@ -44,7 +44,6 @@ class PokeMap extends Component {
 
   constructor(props) {
     super(props);
-    this.props.refresh();
     this.state = {
       region : {
         latitudeDelta: 0.005,
