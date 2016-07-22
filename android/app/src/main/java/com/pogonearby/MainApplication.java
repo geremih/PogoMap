@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient;
 import com.facebook.react.modules.network.OkHttpClientProvider;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import java.util.concurrent.TimeUnit;
-
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -33,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
                                          new RNFetchBlobPackage(),
                                          new MainReactPackage(),
                                          new MapsPackage(),
+                                         new ReactMaterialKitPackage(),
               new S2Package()
       );
     }
