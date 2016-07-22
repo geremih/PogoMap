@@ -44,6 +44,7 @@ class PokeMap extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       region : {
         latitudeDelta: 0.005,
@@ -51,6 +52,7 @@ class PokeMap extends Component {
         ...this.props.user.location,
       },
     };
+    props.updateUserLocation();
   }
 
   onRegionChange(region) {

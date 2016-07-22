@@ -58,6 +58,7 @@ class WebApi {
 
   getAccessToken(username, password) {
     RCTNetworking.clearCookies((success) => console.log(success)) ;
+    console.log('Logging in');
     return fetch(LOGIN_URL, {
       headers,
     })

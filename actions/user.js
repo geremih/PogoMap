@@ -1,5 +1,6 @@
 import {
   LOCATION_UPDATED,
+  LOGIN_SUCCESS,
 } from '../constants/ActionTypes';
 
 import Immutable from 'immutable';
@@ -7,6 +8,27 @@ import WebApi from '../WebApi';
 import {
   onWildPokemon,
 } from './pokemon';
+
+export function login(username, password, onFailed) {
+  return (dispatch) => {
+    WebApi.getAccessToken(username, password)
+      .then((token) => {
+        console.log('Access Token:', token);
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: {
+            username,
+            password,
+          },
+        });
+      })
+      .catch(error => {
+        if (onFailed) {
+          onFailed(error);
+        }
+      });
+  };
+}
 
 
 export function refresh() {
