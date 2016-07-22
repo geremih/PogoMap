@@ -5,6 +5,8 @@ import {
   View,
   StyleSheet,
   ToolbarAndroid,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
 import {
   connect,
@@ -14,32 +16,31 @@ import {
   refresh,
   updateUserLocation,
 } from '../actions/user';
-import ActionButton from 'react-native-action-button';
-const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 400,
-    width: 400,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-});
+import {
+  MKButton,
+} from 'react-native-material-kit';
 import Pokemon from '../pokemon';
 import Proto from '../pokemon_pb';
 const RequestEnvelop = Proto.RequestEnvelop;
 const ResponseEnvelop = Proto.ResponseEnvelop;
 import S2 from '../S2';
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  map: {
+    height: 400,
+    width: 400,
+  },
+
+  toolbar: {
+    height: 56,
+    backgroundColor:'red',
+  },
+});
+
 class PokeMap extends Component {
 
   constructor(props) {
@@ -52,7 +53,7 @@ class PokeMap extends Component {
         ...this.props.user.location,
       },
     };
-    props.updateUserLocation();
+    //props.updateUserLocation();
   }
 
   onRegionChange(region) {
@@ -61,35 +62,57 @@ class PokeMap extends Component {
 
   render() {
     return (
-      <View
-        style={styles.container}
-      >
-        <ToolbarAndroid />
-        <MapView
-          style={styles.map}
-          region={this.state.region}
-          onRegionChange={(region) => this.onRegionChange(region)}
-        >
-          <MapView.Marker
-            coordinate={this.props.user.location}
-            title="You"
-          />
-          {this.props.pokemon.map((marker, i) => (
-             <MapView.Marker
-               key={i}
-               coordinate={{
-                   latitude: marker.latitude,
-                   longitude: marker.longitude,
-                 }}
-               title={Pokemon[marker.id-1].Name}
-               description={(new Date(marker.disappearTime)).toLocaleTimeString()}
-               image={{ uri: `poke_${marker.id}` }}
-             />
-           ))}
-          </MapView>
-        <ActionButton
-          onPress={() => this.props.updateUserLocation()}
-        />
+      <View>
+
+            <ToolbarAndroid
+              title="PokeMap"
+              style={styles.toolbar}
+            />
+        <View>
+          <View
+            style={styles.container}
+          >
+
+            <MapView
+              style={styles.map}
+              region={this.state.region}
+              showsUserLocation
+              followsUserLocation
+              onRegionChange={(region) => this.onRegionChange(region)}
+            >
+              <MapView.Marker
+                coordinate={this.props.user.location}
+                title="You"
+              />
+              {this.props.pokemon.map((marker, i) => (
+                 <MapView.Marker
+                   key={i}
+                   coordinate={{
+                       latitude: marker.latitude,
+                       longitude: marker.longitude,
+                     }}
+                   title={Pokemon[marker.id-1].Name}
+                   description={(new Date(marker.disappearTime)).toLocaleTimeString()}
+                   image={{ uri: `poke_${marker.id}` }}
+                 />
+               ))}
+            </MapView>
+          </View>
+
+        <TouchableOpacity>
+          <MKButton
+            shadowRadius={2}
+            shadowOffset={{ width: 0, height: 2 }}
+            shadowOpacity={0.7}
+            shadowColor="black"
+            onPress={() => this.props.updateUserLocation()}
+          >
+            <Text>
+              Scan
+            </Text>
+          </MKButton>
+        </TouchableOpacity>
+        </View>
       </View>
     );
   }

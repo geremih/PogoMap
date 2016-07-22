@@ -12,7 +12,6 @@
     "protobufjs": "^5.0.1",
     "react": "15.2.1",
     "react-native": "0.29.1",
-    "react-native-action-button": "^1.1.11",
     "react-native-fetch-blob": "^0.7.1",
     "react-native-maps": "^0.7.1",
     "react-native-router-flux": "^3.31.1",

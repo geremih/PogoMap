@@ -5,6 +5,7 @@ import {
   TextInput,
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native';
 import {
   MKButton,
@@ -23,17 +24,19 @@ export default class SignIn extends Component {
           onChangeText={(password) => this.setState({ password })}
           secureTextEntry
         />
-        <MKButton
-          shadowRadius={2}
-          shadowOffset={{ width: 0, height: 2 }}
-          shadowOpacity={0.7}
-          shadowColor="black"
-          onPress={() => this.props.login(this.state.username, this.state.password)}
-        >
-          <Text>
-            Login
-          </Text>
-        </MKButton>
+        <TouchableOpacity>
+          <MKButton
+            shadowRadius={2}
+            shadowOffset={{ width: 0, height: 2 }}
+            shadowOpacity={0.7}
+            shadowColor="black"
+            onPress={() => this.props.login(this.state.username, this.state.password)}
+          >
+            <Text>
+              Login
+            </Text>
+          </MKButton>
+        </TouchableOpacity>
       </View>
     );
   }
