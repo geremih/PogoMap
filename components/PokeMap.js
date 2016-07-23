@@ -15,7 +15,12 @@ import MapView from 'react-native-maps';
 import {
   refresh,
   updateUserLocation,
+  logout,
 } from '../actions/user';
+
+import {
+  onWildPokemon,
+} from '../actions/pokemon';
 import {
   MKButton,
 } from 'react-native-material-kit';
@@ -60,14 +65,22 @@ class PokeMap extends Component {
     this.setState({ region });
   }
 
+  onActionSelected(position) {
+    if (position === 0) { // index of 'Settings'
+      this.props.logout();
+    }
+  }
+
   render() {
     return (
       <View>
 
-            <ToolbarAndroid
-              title="PokeMap"
-              style={styles.toolbar}
-            />
+        <ToolbarAndroid
+          title="PokeMap"
+          style={styles.toolbar}
+          actions={[{title: 'Logout'}]}
+          onActionSelected={(position) => this.onActionSelected(position)}
+        />
         <View>
           <View
             style={styles.container}
@@ -99,19 +112,19 @@ class PokeMap extends Component {
             </MapView>
           </View>
 
-        <TouchableOpacity>
-          <MKButton
-            shadowRadius={2}
-            shadowOffset={{ width: 0, height: 2 }}
-            shadowOpacity={0.7}
-            shadowColor="black"
-            onPress={() => this.props.updateUserLocation()}
-          >
-            <Text>
-              Scan
-            </Text>
-          </MKButton>
-        </TouchableOpacity>
+          <TouchableOpacity>
+            <MKButton
+              shadowRadius={2}
+              shadowOffset={{ width: 0, height: 2 }}
+              shadowOpacity={0.7}
+              shadowColor="black"
+              onPress={() => this.props.updateUserLocation()}
+            >
+              <Text>
+                Scan
+              </Text>
+            </MKButton>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -125,13 +138,11 @@ function mapStateToProps(state) {
     user: state.user.toJS(),
   };
 }
-function mapDispatchToProps(dispatch) {
-  return {
-    refresh: () => dispatch(refresh()),
-    updateUserLocation: () => dispatch(updateUserLocation()),
-    onWildPokemon: (pokemon) => dispatch(onWildPokemon(pokemon)),
-  };
-}
-const PokeMapContainer = connect(mapStateToProps, mapDispatchToProps)(PokeMap);
+const PokeMapContainer = connect(mapStateToProps, {
+  refresh,
+  updateUserLocation,
+  onWildPokemon,
+  logout,
+})(PokeMap);
 export default PokeMapContainer;
 

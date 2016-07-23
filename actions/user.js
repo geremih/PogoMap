@@ -1,6 +1,7 @@
 import {
   LOCATION_UPDATED,
   LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
 } from '../constants/ActionTypes';
 
 import Immutable from 'immutable';
@@ -27,6 +28,13 @@ export function login(username, password, onFailed) {
           onFailed(error);
         }
       });
+  };
+}
+
+export function logout() {
+  return {
+    type: LOGOUT_SUCCESS,
+    payload: {},
   };
 }
 
