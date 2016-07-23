@@ -55,7 +55,7 @@ class PokeMap extends Component {
       region : {
         latitudeDelta: 0.005,
         longitudeDelta: 0.005,
-        ...this.props.user.location,
+        ...props.user.location,
       },
     };
     //props.updateUserLocation();
@@ -72,6 +72,30 @@ class PokeMap extends Component {
   }
 
   render() {
+    let information;
+    if (this.props.session.scanning) {
+      information = (
+        <Text>
+          Scanning
+        </Text>
+      )
+    } else {
+      information = (
+        <TouchableOpacity>
+            <MKButton
+              shadowRadius={2}
+              shadowOffset={{ width: 0, height: 2 }}
+              shadowOpacity={0.7}
+              shadowColor="black"
+              onPress={() => this.props.updateUserLocation()}
+            >
+              <Text>
+                Scan
+              </Text>
+            </MKButton>
+          </TouchableOpacity>
+        );
+    }
     return (
       <View>
 
@@ -111,20 +135,7 @@ class PokeMap extends Component {
                ))}
             </MapView>
           </View>
-
-          <TouchableOpacity>
-            <MKButton
-              shadowRadius={2}
-              shadowOffset={{ width: 0, height: 2 }}
-              shadowOpacity={0.7}
-              shadowColor="black"
-              onPress={() => this.props.updateUserLocation()}
-            >
-              <Text>
-                Scan
-              </Text>
-            </MKButton>
-          </TouchableOpacity>
+          {information}
         </View>
       </View>
     );

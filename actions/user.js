@@ -2,6 +2,8 @@ import {
   LOCATION_UPDATED,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
+  SCANNING_STARTED,
+  SCANNING_COMPLETE,
 } from '../constants/ActionTypes';
 
 import Immutable from 'immutable';
@@ -42,6 +44,10 @@ export function logout() {
 export function refresh() {
 
   return (dispatch, getState) => {
+    dispatch({
+      type: SCANNING_STARTED,
+      payload: {},
+    });
     const user = getState().user.toJS();
     const location = user.location;
     let accessToken;
@@ -63,7 +69,11 @@ export function refresh() {
         console.log('Setting auth to:', useAuth);
       })
       .then(() => WebApi.stepHeartbeat(endpoint, accessToken, location, useAuth,
-                                       (pokemon) => dispatch(onWildPokemon(pokemon))));
+                                       (pokemon) => dispatch(onWildPokemon(pokemon))))
+      .then(() => dispatch({
+        type: SCANNING_COMPLETE,
+        payload: {},
+      }));
   };
 }
 
