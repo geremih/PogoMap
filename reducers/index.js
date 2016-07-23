@@ -1,6 +1,6 @@
 import user from './user';
 import pokemon from './pokemon';
-
+import session from './session';
 
 import {
   combineReducers,
@@ -9,4 +9,5 @@ import {
 export default combineReducers({
   user,
   pokemon,
+  session,
 });

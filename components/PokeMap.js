@@ -134,8 +134,9 @@ class PokeMap extends Component {
 
 function mapStateToProps(state) {
   return {
-    pokemon: state.pokemon.toJS(),
+    pokemon: state.pokemon.toArray(),
     user: state.user.toJS(),
+    session: state.session.toJS(),
   };
 }
 const PokeMapContainer = connect(mapStateToProps, {

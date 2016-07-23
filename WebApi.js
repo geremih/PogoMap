@@ -215,6 +215,7 @@ class WebApi {
                   longitude: pokemon.Longitude,
                   disappearTime: Date.now() + pokemon.TimeTillHiddenMs,
                   id: pokemon.pokemon.PokemonId,
+                  uid: `${pokemon.SpawnPointId}:${pokemon.pokemon.PokemonId}`,
                 });
               }
             }
