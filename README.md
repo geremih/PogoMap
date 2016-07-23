@@ -2,20 +2,15 @@
 ![Alt text](map.jpeg?raw=true "Screenshot")
 
 ### Installation
-Set up the working environment using [Getting Started](https://facebook.github.io/react-native/docs/getting-started.html)
-1. npm install -g react-native
-2. npm install
+1. Set up the working environment using [Getting Started](https://facebook.github.io/react-native/docs/getting-started.html)
+2. Supply your own Google Maps api key in AndroidManifest (Steps 4 and 5 of [Installation](https://github.com/lelandrichardson/react-native-maps/blob/master/docs/installation.md))
 3. react-native run-android
 4. react-native start
 
 ### Usage
-1. Put your PTC username password in reducers/user.js
-2. Supply your own Google Maps api key in AndroidManifest
-
 To delete the persisted data, uncomment purgeAll() in index.android.js
 
 ###Possible contributions:
-1. Support for iOS
-2. Add interface for username password
-3. Run scanner on intervals
-4. Push notifications on whitelisted/blacklisted Pokemon
+1. iOS support 
+2. Run scanner on intervals
+3. Push notifications on whitelisted/blacklisted Pokemon
