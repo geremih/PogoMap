@@ -191,7 +191,7 @@ class WebApi {
     S2.getChildren(location.latitude, location.longitude);
   }
 
-  async stepHeartbeat(endpoint, accessToken, location, useAuth, onWildPokemon) {
+  async stepHeartbeat(endpoint, accessToken, location, useAuth, onWildPokemon, updateProgress) {
     let x   = 0;
     let y   = 0;
     let dx  = 0;
@@ -229,6 +229,7 @@ class WebApi {
           console.log('Request failed', error);
         }
       }
+      updateProgress(Math.floor(steps / Math.pow(steplimit, 2) * 100));
       if ((-steplimit/2 < x || x <= steplimit/2) && (-steplimit/2 < y || y <= steplimit/2)) {
         shiftedLocation = {
           latitude: (x * 0.0025) + location.latitude,

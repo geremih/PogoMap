@@ -76,9 +76,12 @@ export function refresh() {
         console.log('Setting auth to:', useAuth);
       })
       .then(() => {
-        dispatch(updateStatus('4. Running heartbeats'));
+        dispatch(updateStatus('4. Running heartbeats 0%'));
+        const updateProgress = (percent) =>
+                dispatch(updateStatus(`4. Running heartbeats ${percent}%`));
         return WebApi.stepHeartbeat(endpoint, accessToken, location, useAuth,
-                                    (pokemon) => dispatch(onWildPokemon(pokemon)));
+                                    ((pokemon) => dispatch(onWildPokemon(pokemon))),
+                                    updateProgress);
       })
 
       .then(() => dispatch({
