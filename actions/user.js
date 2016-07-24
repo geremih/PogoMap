@@ -11,6 +11,9 @@ import WebApi from '../WebApi';
 import {
   onWildPokemon,
 } from './pokemon';
+import {
+  updateStatus,
+} from './session';
 
 export function login(username, password, onFailed) {
   return (dispatch) => {
@@ -53,27 +56,36 @@ export function refresh() {
     let accessToken;
     let endpoint;
     let useAuth;
+    dispatch(updateStatus(`0. Logging in ${user.username}`));
     WebApi.getAccessToken(user.username, user.password)
       .then((token) => {
         console.log('Access Token:', token);
+        dispatch(updateStatus(`1. Logged in (Token: ${token})`));
         accessToken = token;
         return WebApi.getEndpoint(accessToken, location);
       })
       .then(url => {
         endpoint = url;
         console.log('Endpoint', endpoint);
+        dispatch(updateStatus(`2. Received endpoint (Token: ${endpoint})`));
         return WebApi.getProfile(endpoint, accessToken, location);
       })
       .then(response => {
         useAuth = response.unknown7;
+        dispatch(updateStatus('3. Received profile'));
         console.log('Setting auth to:', useAuth);
       })
-      .then(() => WebApi.stepHeartbeat(endpoint, accessToken, location, useAuth,
-                                       (pokemon) => dispatch(onWildPokemon(pokemon))))
+      .then(() => {
+        dispatch(updateStatus('4. Running heartbeats'));
+        return WebApi.stepHeartbeat(endpoint, accessToken, location, useAuth,
+                                    (pokemon) => dispatch(onWildPokemon(pokemon)));
+      })
+
       .then(() => dispatch({
         type: SCANNING_COMPLETE,
         payload: {},
-      }));
+      }))
+      .catch((error) => dispatch(updateStatus(`Error occured: ${error}`)));
   };
 }
 

@@ -77,6 +77,7 @@ class PokeMap extends Component {
       information = (
         <Text>
           Scanning
+          {this.props.session.status}
         </Text>
       )
     } else {
