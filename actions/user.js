@@ -87,10 +87,13 @@ export function refresh() {
         type: SCANNING_COMPLETE,
         payload: {},
       }))
-      .catch(() => dispatch({
-        type: SCANNING_COMPLETE,
-        payload: {},
-      }));
+      .catch((error) => {
+        console.log('Error occured', error);
+        return dispatch({
+          type: SCANNING_COMPLETE,
+          payload: {},
+        });
+      });
   };
 }
 
