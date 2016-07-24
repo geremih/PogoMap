@@ -88,7 +88,10 @@ export function refresh() {
         type: SCANNING_COMPLETE,
         payload: {},
       }))
-      .catch((error) => dispatch(updateStatus(`Error occured: ${error}`)));
+      .catch(() => dispatch({
+        type: SCANNING_COMPLETE,
+        payload: {},
+      }));
   };
 }
 

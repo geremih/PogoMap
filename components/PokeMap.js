@@ -44,6 +44,20 @@ const styles = StyleSheet.create({
     height: 56,
     backgroundColor:'red',
   },
+  information: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  button: {
+    shadowRadius: 2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.7,
+    shadowColor: 'black',
+    padding: 10,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    backgroundColor: 'red',
+  },
 });
 
 class PokeMap extends Component {
@@ -75,19 +89,20 @@ class PokeMap extends Component {
     let information;
     if (this.props.session.scanning) {
       information = (
-        <Text>
-          Scanning
-          {this.props.session.status}
-        </Text>
+        <View>
+          <Text>
+            Scanning
+          </Text>
+          <Text>
+            {this.props.session.status}
+          </Text>
+        </View>
       )
     } else {
       information = (
         <TouchableOpacity>
-            <MKButton
-              shadowRadius={2}
-              shadowOffset={{ width: 0, height: 2 }}
-              shadowOpacity={0.7}
-              shadowColor="black"
+          <MKButton
+            style={styles.button}
               onPress={() => this.props.updateUserLocation()}
             >
               <Text>
@@ -136,6 +151,11 @@ class PokeMap extends Component {
                ))}
             </MapView>
           </View>
+        </View>
+
+        <View
+          style={styles.information}
+        >
           {information}
         </View>
       </View>
