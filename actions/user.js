@@ -15,7 +15,7 @@ import {
   updateStatus,
 } from './session';
 
-export function login(username, password, onFailed) {
+export function login(username, password, onDone) {
   return (dispatch) => {
     WebApi.getAccessToken(username, password)
       .then((token) => {
@@ -29,8 +29,8 @@ export function login(username, password, onFailed) {
         });
       })
       .catch(error => {
-        if (onFailed) {
-          onFailed(error);
+        if (onDone) {
+          onDone(error);
         }
       });
   };
@@ -45,7 +45,6 @@ export function logout() {
 
 
 export function refresh() {
-
   return (dispatch, getState) => {
     dispatch({
       type: SCANNING_STARTED,

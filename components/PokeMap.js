@@ -103,13 +103,13 @@ class PokeMap extends Component {
         <TouchableOpacity>
           <MKButton
             style={styles.button}
-              onPress={() => this.props.updateUserLocation()}
-            >
-              <Text>
-                Scan
-              </Text>
-            </MKButton>
-          </TouchableOpacity>
+            onPress={() => this.props.updateUserLocation()}
+          >
+            <Text>
+              Scan
+            </Text>
+          </MKButton>
+        </TouchableOpacity>
         );
     }
     return (

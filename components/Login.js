@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {
   MKButton,
+  MKSpinner,
 } from 'react-native-material-kit';
 
 const styles = StyleSheet.create({
@@ -34,7 +35,43 @@ const styles = StyleSheet.create({
 });
 
 export default class SignIn extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      signingIn: false,
+    };
+  }
   render() {
+
+    let button;
+    const onDone = () => this.setState({
+      signingIn: false,
+    });
+    if (this.state.signingIn) {
+      button = (
+        <MKSpinner />
+      );
+    } else {
+      button =  (
+        <TouchableOpacity>
+          <MKButton
+            style={styles.button}
+            onPress={() => {
+                this.props.login(this.state.username, this.state.password, onDone);
+                this.setState({
+                  signingIn: true,
+                });
+              }}
+          >
+            <Text>
+              Login
+            </Text>
+          </MKButton>
+        </TouchableOpacity>
+      )
+    }
+
     return (
       <View
         style={styles.bgContainer}
@@ -51,16 +88,7 @@ export default class SignIn extends Component {
             onChangeText={(password) => this.setState({ password })}
             secureTextEntry
           />
-          <TouchableOpacity>
-            <MKButton
-              style={styles.button}
-              onPress={() => this.props.login(this.state.username, this.state.password)}
-            >
-              <Text>
-                Login
-              </Text>
-            </MKButton>
-          </TouchableOpacity>
+          {button}
         </View>
       </View>
     );
