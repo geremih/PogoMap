@@ -13,6 +13,7 @@ import {
 } from 'react-redux';
 
 import PokeMap from './PokeMap';
+import PokeList from './PokeList';
 import Login from './Login';
 import {
   login,
@@ -50,6 +51,10 @@ class PogoNearby extends Component {
             <Scene
               key="pokeMap"
               component={PokeMap}
+            />
+            <Scene
+              key="pokeList"
+              component={PokeList}
             />
           </Scene>
         </Scene>
