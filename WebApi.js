@@ -14,6 +14,9 @@ const ResponseEnvelop =Proto.ResponseEnvelop;
 const UnknownAuth = Proto.UnknownAuth;
 import jspack from './jspack';
 const jsstruct = jspack.jspack;
+import base64 from 'base-64';
+const atob = base64.decode;
+const btoa = base64.encode;
 
 function serializeJSON(obj) {
   var str = [];
